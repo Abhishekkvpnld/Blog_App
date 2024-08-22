@@ -1,8 +1,12 @@
+import Navbar from "../../components/Navbar/navbar";
 import "./blogDetails.css"
 
 const BlogDetails = () => {
   return (
-    <div>BlogDetails</div>
+    <>
+      <Navbar />
+      <div>BlogDetails</div>
+    </>
   )
 }
 

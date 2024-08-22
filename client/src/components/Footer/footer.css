@@ -29,6 +29,7 @@
   .footer-section p,
   .footer-section ul {
     font-size: 14px;
+    width: 250px;
   }
   
   .footer-section ul {
