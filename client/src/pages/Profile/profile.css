@@ -1,0 +1,77 @@
+.profile_container {
+  background-color: aquamarine;
+  width: 100%;
+  height: 600px;
+  padding: 10px 15px;
+}
+
+.profile_details_section {
+  width: 100%;
+  height: 200px;
+  padding: 5px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.profile_card {
+  border: 1px solid black;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex: 2;
+  height: 100%;
+  background-color: antiquewhite;
+  line-height: 0.7;
+}
+
+.user_img_div img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+}
+
+.user_details_div {
+}
+
+.user_details_div p {
+  font-size: small;
+  font-weight: 500;
+}
+
+.user_details_div h4 {
+  font-weight: bold;
+  color: rgb(78, 76, 76);
+}
+
+.edit_btn_div {
+  text-align: end;
+}
+
+.edit_btn_div button {
+  width: 100%;
+  padding: 7px 5px;
+  color: white;
+  background-color: rgb(69, 69, 241);
+  border: none;
+  border-radius: 5px;
+}
+
+.edit_btn_div button:hover{
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+}
+
+.upload_btn {
+  flex: 1;
+  height: 100%;
+  border-radius: 10px;
+  border: 1px solid black;
+  background-color: black;
+}
+
+

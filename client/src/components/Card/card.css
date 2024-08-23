@@ -1,0 +1,92 @@
+.card_container {
+  width: 300px;
+  line-height: 1;
+  border-radius: 10px;
+  max-height: 500px;
+  min-height: 300px;
+  overflow: hidden;
+  display: flex;
+  margin: 5px;
+  flex-direction: column;
+}
+
+.card_content {
+  margin: 5px;
+}
+
+.card_container h3 {
+  font-size: medium;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.card_container p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  font-size: x-small;
+  color: rgb(102, 101, 101);
+}
+
+.card_container img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.post_action_div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 10px;
+}
+
+.icon_div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 35px;
+}
+
+.icon_link {
+  padding: 12px 15px;
+  background-color: red;
+  color: white;
+  border-radius: 10px;
+}
+
+.icon_link:hover {
+  cursor: pointer;
+}
+
+
+.action_icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.action_icon:hover {
+  cursor: pointer;
+  color: blue;
+}
+
+.action_icon span {
+  font-size: small;
+  color: rgb(65, 63, 63);
+}
+
+
+@media (max-width: 900px) {
+    .card_container {
+        width: 250px;
+      }
+  }
+  

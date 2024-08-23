@@ -5,7 +5,7 @@ const GridContent = () => {
     return (
 
         <div>
-            <h4 style={{ marginBottom: "0", paddingLeft: "30px" }}> Recommended Article</h4>
+            <h3 style={{ marginBottom: "0", paddingLeft: "15px" }}> Articles </h3>
             <div className="grid_container">
                 <div className="grid_first">
                     <img src={blogData[0].imageUrl} alt="img" />
@@ -15,7 +15,7 @@ const GridContent = () => {
                         <p>{blogData[0].date}</p>
                     </div>
                     <h3>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere amet eos fuga eius perferendis, neque reiciendis sunt aperiam repudiandae alias!</h3>
-                    <p>{blogData[0].content}</p>
+                    <p className="grid_content_description">Lorem,lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum totam amet voluptate ea qui reiciendis eveniet harum id consectetur molestias maiores rem, illo eum repellat deleniti. Hic facilis dolor pariatur cupiditate quia vero voluptatem velit porro asperiores placeat ad nulla quis magni atque corporis deleniti, nisi suscipit ea corrupti nam sit! Voluptatum laboriosam dolorem, quas omnis unde voluptatem, distinctio laborum voluptas animi sint quidem, odit aliquid eligendi veritatis hic! Ducimus sunt dolores laboriosam sapiente quos voluptatem voluptate non ut aspernatur. Aspernatur earum incidunt rerum, vero totam aliquid cum nisi deleniti similique quidem iure quod asperiores ex. Neque facilis commodi doloribus!</p>
                 </div>
 
                 <div className="grid_second">
