@@ -1,0 +1,74 @@
+.card_container {
+  width: 300px;
+  line-height: 1;
+  border-radius: 10px;
+  max-height: 500px;
+  min-height: 300px;
+  overflow: hidden;
+  display: flex;
+  margin: 5px;
+  flex-direction: column;
+}
+
+.card_content {
+  margin: 5px;
+}
+
+.card_container h3 {
+  font-size: medium;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.card_container p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  font-size: x-small;
+  color: rgb(102, 101, 101);
+}
+
+.card_container img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.post_action_div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 10px;
+}
+
+.icon_link {
+  background-color: rgb(188, 179, 179);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.delete_icon {
+  padding: 1px;
+  border: 1px solid white;
+  border-radius: 50%;
+  background-color: white;
+  color: red;
+  transition: scale 0.3s ease-in-out;
+}
+
+.delete_icon:hover {
+  scale: 1.5;
+}
+
+@media (max-width: 900px) {
+  .card_container {
+    width: 250px;
+  }
+}

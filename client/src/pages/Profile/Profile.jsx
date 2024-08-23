@@ -1,7 +1,32 @@
+import { useState } from "react";
+import AddPostCard from "../../components/AddPostCard/AddPostCard";
 import Navbar from "../../components/Navbar/navbar";
 import "./profile.css";
+import { IoAddSharp } from "react-icons/io5";
+import UpdateProfile from "../../components/UpdateProfile/UpdateProfile";
+import Card from "../../components/Card/Card";
+import UserBlog from "../../components/UserBlogs/UserBlog";
+
 
 const Profile = () => {
+
+  const [addPost, setAddPost] = useState(false);
+  const [editProfile, setEditProfile] = useState(false);
+  const [showBlog, setShowBlog] = useState(true);
+
+  const handleAddPost = () => {
+    setShowBlog(false);
+    setAddPost((prev) => !prev);
+    setEditProfile(false);
+  }
+
+  const handleUpdateProfile = () => {
+    setShowBlog(false);
+    setAddPost(false);
+    setEditProfile((prev) => !prev);
+  }
+
+
   return (
     <>
       <Navbar />
@@ -21,26 +46,52 @@ const Profile = () => {
               <p>Phone:9568548526</p>
 
               <div className="edit_btn_div">
-                <button>Edit</button>
+                <button onClick={handleUpdateProfile}>Edit</button>
               </div>
             </div>
 
           </div>
 
           <div className="upload_btn">
-
+            <div className="upload_div">
+              <h3>Upload Blog</h3>
+              <div className="add_post_icon" onClick={handleAddPost}>
+                <IoAddSharp />
+              </div>
+            </div>
           </div>
 
         </div>
 
-        {/* <div className="upload_blog_section">
+        {
+          addPost && (<div className="upload_blog_section">
+            <AddPostCard />
+          </div>)
+        }
 
-        </div>
+        {
+          editProfile && (<div className="upload_blog_section">
+            <UpdateProfile />
+          </div>)
+        }
 
-        <div className="uploaded_blog_details">
+        {
+          !editProfile && !addPost && (<div className="uploaded_blog_details">  
 
-        </div> */}
+            <UserBlog/>
+            
+            <UserBlog/>
+            
+            <UserBlog/>
+            
+            <UserBlog/>
+            
+            <UserBlog/>
+            <UserBlog/>
+            
 
+          </div>)
+        }
       </div>
     </>
   )
