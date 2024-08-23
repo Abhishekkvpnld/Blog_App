@@ -94,6 +94,10 @@
     /* margin-top: 80px; */
   }
 
+  .add_post_textArea {
+    width: 75%;
+  }
+
   .add_post_btn {
     margin-right: 80px;
   }

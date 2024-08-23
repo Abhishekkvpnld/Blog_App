@@ -47,6 +47,7 @@ const Profile = () => {
 
               <div className="edit_btn_div">
                 <button onClick={handleUpdateProfile}>Edit</button>
+                <button onClick={handleAddPost}>Add Post</button>
               </div>
             </div>
 
@@ -78,17 +79,37 @@ const Profile = () => {
         {
           !editProfile && !addPost && (<div className="uploaded_blog_details">  
 
-            <UserBlog/>
+           <div>
+           <UserBlog/>
+           </div>
             
-            <UserBlog/>
+           <div>
+           <UserBlog/>
+           </div>
             
-            <UserBlog/>
+           <div>
+           <UserBlog/>
+           </div>
             
-            <UserBlog/>
+           <div>
+           <UserBlog/>
+           </div>
             
-            <UserBlog/>
-            <UserBlog/>
+           <div>
+           <UserBlog/>
+           </div>
             
+           <div>
+           <UserBlog/>
+           </div>
+            
+           <div>
+           <UserBlog/>
+           </div>
+            
+           <div>
+           <UserBlog/>
+           </div>
 
           </div>)
         }
