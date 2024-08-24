@@ -1,41 +1,35 @@
 import mongoose from "mongoose";
 import validator from "validator";
 
-const postSchema = new mongoose.Schema({
-  userName: {
-    type: String,
-    required: true,
-    minLength: [3, "User Name Must Contain At Least 3 Characters!"],
-  },
+const postSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
 
-  email: {
-    type: String,
-    required: true,
-    validate: [validator.isEmail, "Please Provide A Valid Email!"],
+    title: {
+      type: String,
+      required: true,
+    },
+    content: {
+      type: String,
+      required: true,
+    },
+    contentType: {
+      type: String,
+      required: true,
+    },
+    postImg: {
+      public_id: String,
+      url: String,
+    },
   },
-  phone: {
-    type: Number,
-    required: true,
-    minLength: [10, "Phone Number Must Contain Exact 10 Digits!"],
-    maxLength: [10, "Phone Number Must Contain Exact 10 Digits!"],
-  },
+  {
+    timestamps: true,
+  }
+);
 
-  password: {
-    type: String,
-    required: true,
-    select: false,
-    minLength: [8, "Password Must Contain Atleast 8 Characters!"],
-  },
-  role: {
-    type: String,
-    required: true,
-    enum: ["Admin", "Patient", "Doctor"],
-  },
-  docAvatar: {
-    public_id: String,
-    url: String,
-  },
-});
-
-const PostModel = mongoose.model("Post", postSchema);
-export default PostModel;
+const Post = mongoose.model("Post", postSchema);
+export default Post;

@@ -19,24 +19,6 @@ const Navbar = () => {
   const [searchValue, setSearchValue] = useState("");
 
   // const { isAuthenticated, setIsAuthenticated } = useContext(context);
-console.log(searchValue)
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 768) {
-        setShow(true);
-      } else {
-        setShow(false);
-      }
-    };
-    // Run on component mount
-    handleResize();
-    // Add event listener
-    window.addEventListener("resize", handleResize);
-
-    // Clean up event listener on component unmount
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   const handleLogOut = async () => {
     try {

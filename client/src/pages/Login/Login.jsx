@@ -21,7 +21,7 @@ const Login = () => {
       const response = await axios.post(`${BaseUrl}/user/login`, { email, password });
       if (response?.data.success) {
         toast.success(response?.data?.message);
-        navigate("/");
+        // navigate("/");
       }
     } catch (error) {
       console.log(error)

@@ -8,7 +8,6 @@ import { IoIosLogOut } from "react-icons/io";
 import { FcBusinessContact } from "react-icons/fc";
 import { FcSearch } from "react-icons/fc";
 import { FcAbout } from "react-icons/fc";
-import Search from '../SearchBar/Search';
 
 
 

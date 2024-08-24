@@ -14,13 +14,13 @@ dotenv.config();
 const app = express();
 
 //Middlewares
-app.use(express.json());
 app.use(cookieParser());
+app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL, "http://localhost:5173"],
+    origin:"http://localhost:5173",
     methods: ["GET", "POST", "DELETE", "PUT"],
     credentials: true,
   })

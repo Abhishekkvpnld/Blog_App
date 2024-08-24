@@ -92,18 +92,19 @@ export const login = async (req, res) => {
       const token = jwt.sign(tokenData, process.env.JWT_SECRET_KEY, {
         expiresIn: process.env.JWT_EXPIRES,
       });
-
-      const tokenOption = {
-        httpOnly: true,
-        secure: true,
-        sameSite: "None",
-      };
-
-      return res.cookie("token", token, tokenOption).status(200).json({
-        success: true,
-        error: false,
-        message: "Logged In Successfully...✅",
-      });
+      res
+        .cookie("token", token, {
+          expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+        })
+        .status(200)
+        .json({
+          success: true,
+          error: false,
+          data: token,
+          message: "Logged In Successfully...✅",
+        });
     } else {
       throw new Error("Please Check Password...🤦‍♂️");
     }
