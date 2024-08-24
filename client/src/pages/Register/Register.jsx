@@ -18,6 +18,8 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [docAvatar, setDocAvatar] = useState("");
   const [docAvatarPreview, setDocAvatarPreview] = useState("");
+  const [phone, setPhone] = useState("");
+  const [role, setRole] = useState("");
 
   const handleAvatar = async (e) => {
     const file = e.target.files[0];
@@ -115,6 +117,33 @@ const Register = () => {
 
           </div>
 
+          <div className='signup_div_category'>
+
+            <div className="signup_inp_div">
+              <label htmlFor="phone">Phone</label>
+              <input
+                className="signup_inp"
+                type="number"
+                placeholder="Enter Phone Number..."
+                name="phone"
+                id="phone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </div>
+
+            <div className="signup_inp_div">
+              <label htmlFor="role">Role</label>
+              <select className='signup_inp signup_section' name="role" id="role" value={role} onChange={(e) => setRole(e.target.value)} >
+                <option value="">Select</option>
+                <option value="TechBlogger">Tech Blogger</option>
+                <option value="TravelBlogger">Travel Blogger</option>
+                <option value="FoodBlogger">Food Blogger</option>
+                <option value="FashionBlogger">Fashion Blogger</option>
+              </select>
+            </div>
+
+          </div>
 
           <div className='signup_div_category'>
 

@@ -36,7 +36,7 @@ const Profile = () => {
           <div className="profile_card">
 
             <div className="user_img_div">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdg2M6jYd_VXOom72AZcp3t3YTcnEGDxSzmA&s" alt="Profile" />
+              <img src="https://imgv3.fotor.com/images/slider-image/A-clear-close-up-photo-of-a-woman.jpg" alt="Profile" />
             </div>
 
             <div className="user_details_div">

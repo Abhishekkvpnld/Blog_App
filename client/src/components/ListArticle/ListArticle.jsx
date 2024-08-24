@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Card from "../Card/Card";
 import "./listArticle.css";
 import { CiSearch } from "react-icons/ci";
@@ -34,11 +35,14 @@ const ListArticle = () => {
       </div>
 
       <div className="list_div">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        <Link style={{textDecoration:"none"}} to={"/details"}><Card/></Link>
+        <Link style={{textDecoration:"none"}} to={"/details"}><Card/></Link>
+        <Link style={{textDecoration:"none"}} to={"/details"}><Card/></Link>
+        <Link style={{textDecoration:"none"}} to={"/details"}><Card/></Link>
+        <Link style={{textDecoration:"none"}} to={"/details"}><Card/></Link>
+        <Link style={{textDecoration:"none"}} to={"/details"}><Card/></Link>
+        <Link style={{textDecoration:"none"}} to={"/details"}><Card/></Link>
+        <Link style={{textDecoration:"none"}} to={"/details"}><Card/></Link>
       </div>
 
     </div>
