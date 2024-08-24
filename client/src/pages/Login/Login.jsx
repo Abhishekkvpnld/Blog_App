@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Navbar from "../../components/Navbar/navbar";
+import { BaseUrl } from "../../utils/baseUrl";
 
 const Login = () => {
 
@@ -11,12 +12,21 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
 
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    try {
+      const response = await axios.post(`${BaseUrl}/user/login`, { email, password });
+      if (response?.data.success) {
+        toast.success(response?.data?.message);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error(error?.response?.data?.message);
+    }
   }
 
 
@@ -52,19 +62,6 @@ const Login = () => {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-
-          <div className="inp_div">
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <input
-              className="login_inp"
-              type="password"
-              placeholder="Enter Confirm Password..."
-              name="confirmPassword"
-              id="confirmPassword"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
 

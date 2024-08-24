@@ -56,13 +56,14 @@
 
 .icon_link {
   padding: 12px 15px;
-  background-color: red;
+  background-color: rgb(246, 5, 5);
   color: white;
   border-radius: 10px;
 }
 
 .icon_link:hover {
   cursor: pointer;
+  background-color: blue;
 }
 
 

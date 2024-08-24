@@ -41,19 +41,22 @@ const Register = () => {
       formData.append("email", email);
       formData.append("password", password);
       formData.append("docAvatar", docAvatar);
+      formData.append("phone", phone);
+      formData.append("role", role);
+      formData.append("confirmPassword", confirmPassword);
 
       const response = await axios.post(`${BaseUrl}/user/register`, formData,
         {
           withCredentials: true,
           headers: {
-            "Content-Type": "multipart/form-data"
+            "Content-Type": "multipart/form-data" 
           }
         }
       );
 
       if (response?.data?.success) {
         toast.success(response?.data?.message);
-        navigate("/");
+        navigate("/login");
       }
 
     } catch (error) {
