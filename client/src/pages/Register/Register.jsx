@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
 import "./register.css";
 import { BaseUrl } from '../../utils/baseUrl';
-import Navbar from '../../components/Navbar/navbar';
+import Navbar from '../../components/Navbar/Navbar.jsx';
 
 
 const Register = () => {

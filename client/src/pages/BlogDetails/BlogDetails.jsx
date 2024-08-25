@@ -1,4 +1,4 @@
-import Navbar from "../../components/Navbar/navbar";
+import Navbar from "../../components/Navbar/Navbar";
 import "./blogDetails.css"
 import Footer from "../../components/Footer/Footer";
 import { FcLike } from "react-icons/fc";

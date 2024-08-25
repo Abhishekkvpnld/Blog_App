@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import AddPostCard from "../../components/AddPostCard/AddPostCard";
-import Navbar from "../../components/Navbar/navbar";
+import Navbar from "../../components/Navbar/Navbar.jsx";
 import "./profile.css";
 import { IoAddSharp } from "react-icons/io5";
 import UpdateProfile from "../../components/UpdateProfile/UpdateProfile";
