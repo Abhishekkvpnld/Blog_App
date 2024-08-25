@@ -14,7 +14,7 @@ import { UserContext } from './context/userContext';
 
 function App() {
 
-  const { isAuthenticated, setIsAuthenticated, setUserData,userData } = useContext(UserContext);
+  const { isAuthenticated, setIsAuthenticated, setUserData } = useContext(UserContext);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -42,7 +42,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/profile' element={<Profile />} />
-          <Route path='/details' element={<BlogDetails />} />
+          <Route path='/details/:id' element={<BlogDetails />} />
         </Routes>
         <Toaster position='top-right' />
       </Router>

@@ -80,6 +80,7 @@
 
   .second_card{
     min-height: 30%;
+    margin-top:5px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -89,19 +90,29 @@
   }
   
   .grid_second img {
-    width: 300px;
+    width: 100px;
     height: 95%;
     border-radius: 3px;
   }
   
   .grid_second h3 {
-    font-size: small;
+    font-size: small; display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
   }
   
   .grid_second p {
       font-size: x-small;
       font-weight: 600;
-      color: grey;
+      color: grey; display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: normal;
 
     }
   

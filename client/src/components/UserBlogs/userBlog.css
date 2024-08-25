@@ -2,8 +2,8 @@
   width: 300px;
   line-height: 1;
   border-radius: 10px;
-  max-height: 500px;
-  min-height: 300px;
+  max-height: 400px;
+  min-height: 400px;
   overflow: hidden;
   display: flex;
   margin: 5px;
@@ -18,7 +18,7 @@
   font-size: medium;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;

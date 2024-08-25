@@ -18,7 +18,8 @@ const AddPostCard = ({ setAddPost }) => {
     const [docAvatar, setDocAvatar] = useState("");
     const [docAvatarPreview, setDocAvatarPreview] = useState("");
 
-
+    const randomThreeDigitNumber = Math.floor(Math.random() * 900) + 100;
+    const randomTwoDigitNumber = Math.floor(Math.random() * 90) + 10;
 
     const handleAvatar = async (e) => {
         const file = e.target.files[0];
@@ -49,6 +50,8 @@ const AddPostCard = ({ setAddPost }) => {
             formData.append("content", content);
             formData.append("contentType", type);
             formData.append("postImg", docAvatar);
+            formData.append("share",randomTwoDigitNumber);
+            formData.append("comment",randomThreeDigitNumber);
 
             const response = await axios.post(`${BaseUrl}/post/addNew`, formData,
                 {

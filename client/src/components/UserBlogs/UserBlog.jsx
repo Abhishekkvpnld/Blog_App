@@ -8,9 +8,11 @@ import moment from "moment";
 
 const UserBlog = ({ data }) => {
 
+  const postId = data?._id;
+
   const handleDelete = async () => {
     try {
-      const response = await axios.post(`${BaseUrl}/post/delete-post/${"id"}`, { userId: "" }, { withCredentials: true });
+      const response = await axios.delete(`${BaseUrl}/post/delete-post/${postId}`, { withCredentials: true });
       if (response?.data?.success) {
         toast.success(response?.data?.message);
       }
@@ -31,7 +33,7 @@ const UserBlog = ({ data }) => {
       </div>
 
       <div className="icon_link">
-      <div style={{fontWeight:"500"}}>{moment(data?.createdAt).fromNow()}</div>
+        <div style={{ fontWeight: "500" }}>{moment(data?.createdAt).fromNow()}</div>
         <MdDeleteOutline onClick={handleDelete} className="delete_icon" title="delete" />
       </div>
     </div>

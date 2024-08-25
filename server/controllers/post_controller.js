@@ -1,9 +1,10 @@
 import Post from "../models/postModel.js";
 import cloudinary from "cloudinary";
+import User from "../models/userModel.js";
 
 export const addNewPost = async (req, res) => {
   try {
-    const { title, content, contentType } = req.body;
+    const { title, content, contentType, share, comment } = req.body;
     const { postImg } = req.files;
     const userId = req.user.id;
 
@@ -36,6 +37,8 @@ export const addNewPost = async (req, res) => {
       title,
       content,
       contentType,
+      share,
+      comment,
       postImg: {
         public_id: cloudinaryResponse.public_id,
         url: cloudinaryResponse.secure_url,
@@ -58,8 +61,9 @@ export const addNewPost = async (req, res) => {
 
 export const deletePost = async (req, res) => {
   try {
-    const userId = req.use.id;
+    const userId = req.user.id;
     const postId = req.params.id;
+
 
     const checkPost = await Post.findById(postId);
     if (!checkPost) throw new Error("Post Not Found❌");
@@ -87,10 +91,26 @@ export const allPost = async (req, res) => {
   try {
     const allPosts = await Post.find();
 
+    const allData = [];
+
+    for (let i = 0; i < allPosts.length; i++) {
+      const post = allPosts[i];
+      const userId = post.userId;
+
+      const userData = await User.findById(userId);
+
+      const combinedData = {
+        ...post.toObject(),
+        userData,
+      };
+
+      allData.push(combinedData);
+    }
+
     return res.status(200).json({
       success: true,
       error: false,
-      data: allPosts,
+      data: allData,
     });
   } catch (error) {
     res.status(500).json({
@@ -119,6 +139,35 @@ export const userPosts = async (req, res) => {
       success: true,
       error: false,
       data: getUserPosts,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: true,
+      message: error.message,
+    });
+  }
+};
+
+export const getPost = async (req, res) => {
+  try {
+    const postId = req.params.id;
+
+    const postData = await Post.findById(postId);
+    if (!postData) throw new Error("Post Not Found ❌");
+
+    const uploaderId = postData.userId;
+    const uploaderData = await User.findById(uploaderId);
+
+    const combinedData = {
+      ...postData.toObject(),
+      uploaderData,
+    };
+
+    return res.status(200).json({
+      success: true,
+      error: false,
+      data: combinedData,
     });
   } catch (error) {
     res.status(500).json({

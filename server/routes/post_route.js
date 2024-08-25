@@ -4,6 +4,7 @@ import {
   allPost,
   commentPost,
   deletePost,
+  getPost,
   likePost,
   searchPost,
   userPosts,
@@ -13,6 +14,7 @@ import { authToken } from "../middlewares/jwtAuth.js";
 const router = express.Router();
 
 router.get("/allPosts", allPost);
+router.get("/getPost/:id",authToken,getPost);
 router.get("/user-posts", authToken, userPosts);
 
 router.post("/addNew", authToken, addNewPost);

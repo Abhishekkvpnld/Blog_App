@@ -14,6 +14,21 @@
   margin: 5px;
 }
 
+.card_profile_details {
+  display: flex;
+  align-items: center;
+  padding: 0px 5px;
+  width: 100%;
+  max-height: 20px;
+  justify-content: space-between;
+}
+
+.card_img {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
 .card_container h3 {
   font-size: medium;
   display: -webkit-box;
@@ -66,7 +81,6 @@
   background-color: blue;
 }
 
-
 .action_icon {
   display: flex;
   align-items: center;
@@ -84,10 +98,8 @@
   color: rgb(65, 63, 63);
 }
 
-
 @media (max-width: 900px) {
-    .card_container {
-        width: 250px;
-      }
+  .card_container {
+    width: 250px;
   }
-  
+}

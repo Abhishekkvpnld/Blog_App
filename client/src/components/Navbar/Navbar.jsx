@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import "./navbar.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { BaseUrl } from "../../utils/baseUrl";
@@ -39,6 +39,13 @@ const Navbar = () => {
     }
   };
 
+  const handleProfile = () => {
+    if (!isAuthenticated) {
+      return <Navigate to={"/login"} />
+    }
+    navigate("/profile")
+  }
+
   return (
     <nav className="nav_container">
 
@@ -60,7 +67,7 @@ const Navbar = () => {
         <div className="links">
           <Link style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: "none" }}><IoIosSearch style={{ width: "25px", height: "25px" }} /><input value={searchValue} type="text" onChange={(e) => setSearchValue(e.target.value)} name="search-Inp" id="search-inp" className="search-inp" placeholder="Search..." /></Link>
           <Link className="link" to={"/"}>Home</Link>
-          <Link className="link" to={"/profile"}>Profile</Link>
+          <div className="link" onClick={handleProfile}>Profile</div>
           <Link className="link" to={"/"}>About Us</Link>
         </div>
 

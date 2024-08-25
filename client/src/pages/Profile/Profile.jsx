@@ -23,10 +23,6 @@ const Profile = () => {
   const [posts, setPosts] = useState([]);
 
 
-  if (!isAuthenticated) {
-    return <Navigate to={"/login"} />
-  }
-
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -41,6 +37,7 @@ const Profile = () => {
 
     fetchPosts();
   }, []);
+  
 
   const handleAddPost = () => {
     setShowBlog(false);

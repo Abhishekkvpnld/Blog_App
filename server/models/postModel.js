@@ -30,9 +30,13 @@ const postSchema = new mongoose.Schema(
       default: [],
     },
     comment: {
-      type: Array,
-      default: [],
+      type: Number,
+      default: 15,
     },
+    share:{
+      type:Number,
+      default:22
+    }
   },
   {
     timestamps: true,
