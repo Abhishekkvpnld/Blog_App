@@ -6,7 +6,6 @@ import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Profile from './pages/Profile/Profile';
 import BlogDetails from './pages/BlogDetails/BlogDetails';
-import AddPost from './pages/AddPost/AddPost';
 import { Toaster } from "react-hot-toast";
 import axios from 'axios';
 import { BaseUrl } from './utils/baseUrl';
@@ -15,25 +14,25 @@ import { UserContext } from './context/userContext';
 
 function App() {
 
-  const { isAuthenticated, setIsAuthenticated, setUserData } = useContext(UserContext)
+  const { isAuthenticated, setIsAuthenticated, setUserData,userData } = useContext(UserContext);
 
-  // useEffect(() => {
-  //   const fetchUserData = async () => {
-  //     try {
-  //       const response = await axios.get(`${BaseUrl}/user/userData`, { withCredentials: true });
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(`${BaseUrl}/user/userData`, { withCredentials: true });
 
-  //       if (response?.data?.success) {
-  //         setIsAuthenticated(true);
-  //         setUserData(response?.data?.data);
-  //       }
+        if (response?.data?.success) {
+          setIsAuthenticated(true);
+          setUserData(response?.data?.data);
+        }
 
-  //     } catch (error) {
-  //       console.log(error.message);
-  //     }
-  //   };
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
 
-  //   fetchUserData();
-  // }, [isAuthenticated]);
+    fetchUserData();
+  }, [isAuthenticated]);
 
   return (
     <>
@@ -43,7 +42,6 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/profile' element={<Profile />} />
-          <Route path='addPost' element={<AddPost />} />
           <Route path='/details' element={<BlogDetails />} />
         </Routes>
         <Toaster position='top-right' />

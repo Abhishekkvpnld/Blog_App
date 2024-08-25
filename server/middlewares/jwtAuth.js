@@ -4,8 +4,6 @@ export const authToken = async (req, res, next) => {
   try {
     const token = req.cookies?.token || req.headers?.cookie;
 
-    console.log(token,"✅✅✅✅✅✅✅✅✅")
-
     if (!token) {
       throw new Error("Please login first..🔐");
     }
@@ -15,8 +13,7 @@ export const authToken = async (req, res, next) => {
         throw new Error("auth error🔐");
       }
       req.user = decoded;
-      console.log(decoded)
-    //   next();
+      next();
     });
   } catch (error) {
     console.log(error);

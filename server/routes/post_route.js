@@ -1,14 +1,26 @@
 import express from "express";
-import { addNewPost, commentPost, deletePost, likePost, searchPost } from "../controllers/post_controller.js";
+import {
+  addNewPost,
+  allPost,
+  commentPost,
+  deletePost,
+  likePost,
+  searchPost,
+  userPosts,
+} from "../controllers/post_controller.js";
+import { authToken } from "../middlewares/jwtAuth.js";
 
 const router = express.Router();
 
-router.post("/new-post",addNewPost);
-router.post("/search",searchPost);
+router.get("/allPosts", allPost);
+router.get("/user-posts", authToken, userPosts);
 
-router.delete("/delete-post",deletePost);
+router.post("/addNew", authToken, addNewPost);
+router.post("/search", searchPost);
 
-router.put("/like",likePost);
-router.put("/comment",commentPost);
+router.delete("/delete-post/:id", authToken, deletePost);
+
+router.put("/like/:id", likePost);
+router.put("/comment/:id", commentPost);
 
 export default router;

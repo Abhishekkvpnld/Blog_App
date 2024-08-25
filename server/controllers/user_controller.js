@@ -120,7 +120,8 @@ export const login = async (req, res) => {
 
 export const getUserData = async (req, res) => {
   try {
-    const userData = await userModel.findById(req.user.id);
+    const userData = await User.findById(req.user.id);
+    if (!userData) throw new Error("User Not Found❌");
 
     res.status(200).json({
       data: userData,
@@ -140,6 +141,75 @@ export const getUserData = async (req, res) => {
 
 export const updateProfile = async (req, res) => {
   try {
+    const { userName, password, role, phone } = req.body;
+    const userId = req.user.id;
+
+    console.log(userName, role, password, phone);
+    if (!userName) throw new Error("Please Enter User Name...❌");
+    if (!phone) throw new Error("Please Enter Phone...❌");
+    if (!role) throw new Error("Please Provide Role...❌");
+
+    const updatedData = { userName, role, phone };
+
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      updatedData.password = hashedPassword;
+    }
+
+    // Handle image upload if an image is provided
+    if (req.files && req.files.docAvatar) {
+      const { docAvatar } = req.files;
+      const cloudinaryResponse = await cloudinary.v2.uploader.upload(
+        docAvatar.tempFilePath,
+        {
+          folder: "blog_app",
+          upload_preset: "Blog_App",
+        }
+      );
+
+      if (!cloudinaryResponse || cloudinaryResponse.error) {
+        console.error(
+          "Cloudinary Error:",
+          cloudinaryResponse.error || "Unknown Cloudinary Error ❌"
+        );
+      } else {
+        updatedData.docAvatar = {};
+
+        updatedData.docAvatar.url = cloudinaryResponse.secure_url;
+        updatedData.docAvatar.public_id = cloudinaryResponse.public_id;
+      }
+    }
+
+    const updateUser = await User.findByIdAndUpdate(userId, updatedData, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (updateUser) {
+      const tokenData = {
+        id: updateUser._id,
+        username: updateUser.userName,
+        email: updateUser.email,
+        phone: updateUser.phone,
+        role: updateUser.role,
+      };
+      const token = jwt.sign(tokenData, process.env.JWT_SECRET_KEY, {
+        expiresIn: process.env.JWT_EXPIRES,
+      });
+      res
+        .cookie("token", token, {
+          expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+        })
+        .status(200)
+        .json({
+          success: true,
+          error: false,
+          message: "Profile Updated Successfully ✅",
+          data: updateUser,
+        });
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({

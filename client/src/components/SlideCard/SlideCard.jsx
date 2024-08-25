@@ -1,9 +1,4 @@
 import "./slideCard.css";
-import { RiDislikeLine } from "react-icons/ri";
-import { FcLike } from "react-icons/fc";
-import { FaRegCommentAlt } from "react-icons/fa";
-import { IoMdShare } from "react-icons/io";
-import { GrShare } from "react-icons/gr";
 
 const SlideCard = ({ data }) => {
     return (

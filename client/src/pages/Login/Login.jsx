@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import "./login.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -18,10 +18,10 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${BaseUrl}/user/login`, { email, password });
+      const response = await axios.post(`${BaseUrl}/user/login`, { email, password },{withCredentials:true});
       if (response?.data.success) {
         toast.success(response?.data?.message);
-        // navigate("/");
+        navigate("/");
       }
     } catch (error) {
       console.log(error)

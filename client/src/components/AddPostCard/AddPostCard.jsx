@@ -4,12 +4,13 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { BaseUrl } from "../../utils/baseUrl";
+import { UserContext } from "../../context/userContext";
 
 
 
-const AddPostCard = () => {
+const AddPostCard = ({ setAddPost }) => {
     const navigate = useNavigate();
-    // const { isAdminAuthenticated } = useContext(context);
+    const { isAuthenticated } = useContext(UserContext);
 
     const [title, setTitle] = useState("");
     const [type, setType] = useState("");
@@ -29,36 +30,45 @@ const AddPostCard = () => {
         }
     }
 
-    const handleRegister = async (e) => {
+    if (!isAuthenticated) {
+        return <Navigate to={"/login"} />
+    }
+
+    const handleAddPost = async (e) => {
         e.preventDefault();
 
-        // try {
+        if (!isAuthenticated) {
+            return <Navigate to={"/login"} />
+        }
 
-        //     const formData = new FormData();
+        try {
 
-        //     formData.append("title",title);
-        //     formData.append("content",content);
-        //     formData.append("type",type);
-        //     formData.append("docAvatar", docAvatar);
+            const formData = new FormData();
 
-        //     const response = await axios.post(`${BaseUrl}/user/post/addNew`, formData,
-        //         {
-        //             withCredentials: true,
-        //             headers: {
-        //                 "Content-Type": "multipart/form-data"
-        //             }
-        //         }
-        //     );
+            formData.append("title", title);
+            formData.append("content", content);
+            formData.append("contentType", type);
+            formData.append("postImg", docAvatar);
 
-        //     if (response?.data?.success) {
-        //         toast.success(response?.data?.message);
-        //         navigate("/profile");
-        //     }
+            const response = await axios.post(`${BaseUrl}/post/addNew`, formData,
+                {
+                    withCredentials: true,
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                }
+            );
 
-        // } catch (error) {
-        //     console.log(error.message);
-        //     toast.error(error?.response?.data?.message);
-        // }
+            if (response?.data?.success) {
+                toast.success(response?.data?.message);
+                setAddPost(false);
+                navigate("/profile");
+            }
+
+        } catch (error) {
+            console.log(error.message);
+            toast.error(error?.response?.data?.message);
+        }
     }
 
 
@@ -68,7 +78,7 @@ const AddPostCard = () => {
 
             <h1 className="add_post_title">ADD NEW BLOG</h1>
 
-            <form className="add_post_form" onSubmit={handleRegister} >
+            <form className="add_post_form" onSubmit={handleAddPost} >
 
 
                 <div className="add_post_inp_div" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px" }}>

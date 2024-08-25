@@ -8,6 +8,7 @@ import SideBar from "../Sidebar/Sidebar";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoIosSearch } from "react-icons/io";
 import Search from "../SearchBar/Search";
+import { UserContext } from "../../context/userContext";
 
 
 const Navbar = () => {
@@ -18,7 +19,8 @@ const Navbar = () => {
   const [show, setShow] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
-  // const { isAuthenticated, setIsAuthenticated } = useContext(context);
+  const { isAuthenticated, setIsAuthenticated, userData } = useContext(UserContext);
+
 
   const handleLogOut = async () => {
     try {
@@ -27,8 +29,8 @@ const Navbar = () => {
 
       if (response?.data?.success) {
         toast.success(response?.data?.message);
-        // setIsAuthenticated(false);
-        navigate("/")
+        setIsAuthenticated(false);
+        navigate("/login")
       }
 
     } catch (error) {
@@ -42,7 +44,7 @@ const Navbar = () => {
 
       <div className="logo">
         <span> BlogSpot</span>
-        <span><img src="./profile.jpg" alt="profile" style={{ width: "50px", height: "50px", borderRadius: "50%" }} /></span>
+        <span><img src={userData?.docAvatar?.url || "./profile.jpg"} alt="profile" style={{ width: "50px", height: "50px", borderRadius: "50%" }} /></span>
       </div>
 
       {
@@ -62,7 +64,7 @@ const Navbar = () => {
           <Link className="link" to={"/"}>About Us</Link>
         </div>
 
-        {/* {isAuthenticated ? (<button className="nav_btn" onClick={handleLogOut}>LOGOUT</button>) : (<button className="nav_btn" onClick={() => navigate("/login")}>LOGIN</button>)} */}
+        {isAuthenticated ? (<button className="nav_btn" onClick={handleLogOut}>LOGOUT</button>) : (<button className="nav_btn" onClick={() => navigate("/login")}>LOGIN</button>)}
 
       </div>
       <GiHamburgerMenu className="menu_icon" width={"65px"} style={{ marginRight: "40px" }} onClick={() => setShow(!show)} />

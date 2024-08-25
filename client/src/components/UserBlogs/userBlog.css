@@ -38,6 +38,8 @@
 .card_container img {
   width: 100%;
   border-radius: 10px;
+  min-height: 200px;
+  max-height: 200px;
 }
 
 .post_action_div {

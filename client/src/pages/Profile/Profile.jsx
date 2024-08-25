@@ -1,18 +1,46 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AddPostCard from "../../components/AddPostCard/AddPostCard";
 import Navbar from "../../components/Navbar/navbar";
 import "./profile.css";
 import { IoAddSharp } from "react-icons/io5";
 import UpdateProfile from "../../components/UpdateProfile/UpdateProfile";
-import Card from "../../components/Card/Card";
 import UserBlog from "../../components/UserBlogs/UserBlog";
+import { UserContext } from "../../context/userContext";
+import { Navigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { BaseUrl } from "../../utils/baseUrl";
 
 
 const Profile = () => {
 
+  const { isAuthenticated, userData } = useContext(UserContext);
+
+
   const [addPost, setAddPost] = useState(false);
   const [editProfile, setEditProfile] = useState(false);
   const [showBlog, setShowBlog] = useState(true);
+  const [posts, setPosts] = useState([]);
+
+
+  if (!isAuthenticated) {
+    return <Navigate to={"/login"} />
+  }
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get(`${BaseUrl}/post/user-posts`, { withCredentials: true });
+        if (response?.data?.success) {
+          setPosts(response?.data?.data);
+        }
+      } catch (error) {
+        toast.error(error?.response?.data?.message)
+      }
+    }
+
+    fetchPosts();
+  }, []);
 
   const handleAddPost = () => {
     setShowBlog(false);
@@ -40,10 +68,10 @@ const Profile = () => {
             </div>
 
             <div className="user_details_div">
-              <h4>User Name</h4>
-              <p>Role/Occupation: travel blogger</p>
-              <p>Email:user@gmail.com</p>
-              <p>Phone:9568548526</p>
+              <h4>{userData?.userName}</h4>
+              <p>Role/Occupation: <span style={{ marginLeft: "3px", color: "red" }}>{userData?.role}</span></p>
+              <p>Email:<span style={{ marginLeft: "3px", color: "red" }}>{userData?.email}</span></p>
+              <p>Phone:<span style={{ marginLeft: "3px", color: "red" }}>{userData?.phone}</span></p>
 
               <div className="edit_btn_div">
                 <button onClick={handleUpdateProfile}>Edit</button>
@@ -66,7 +94,7 @@ const Profile = () => {
 
         {
           addPost && (<div className="upload_blog_section">
-            <AddPostCard />
+            <AddPostCard setAddPost={setAddPost} />
           </div>)
         }
 
@@ -77,39 +105,15 @@ const Profile = () => {
         }
 
         {
-          !editProfile && !addPost && (<div className="uploaded_blog_details">  
+          !editProfile && !addPost && (<div className="uploaded_blog_details">
 
-           <div>
-           <UserBlog/>
-           </div>
-            
-           <div>
-           <UserBlog/>
-           </div>
-            
-           <div>
-           <UserBlog/>
-           </div>
-            
-           <div>
-           <UserBlog/>
-           </div>
-            
-           <div>
-           <UserBlog/>
-           </div>
-            
-           <div>
-           <UserBlog/>
-           </div>
-            
-           <div>
-           <UserBlog/>
-           </div>
-            
-           <div>
-           <UserBlog/>
-           </div>
+            {
+              posts?.map((post, index) => (
+                <div key={index}>
+                  <UserBlog data={post} />
+                </div>
+              ))
+            }
 
           </div>)
         }

@@ -25,6 +25,14 @@ const postSchema = new mongoose.Schema(
       public_id: String,
       url: String,
     },
+    like: {
+      type: Array,
+      default: [],
+    },
+    comment: {
+      type: Array,
+      default: [],
+    },
   },
   {
     timestamps: true,
