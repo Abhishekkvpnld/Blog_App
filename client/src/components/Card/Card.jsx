@@ -8,14 +8,21 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
+import toast from "react-hot-toast";
 
 
 const Card = ({ data }) => {
 
+  const { isAuthenticated, userData } = useContext(UserContext);
+
   const navigate = useNavigate();
 
   const handleOpenSite = () => {
-    navigate(`/details/${data?._id}`)
+    if (isAuthenticated) {
+      navigate(`/details/${data?._id}`)
+    } else {
+      toast.error("Please Login First🔐🔐");
+    }
   }
 
   return (
@@ -40,7 +47,9 @@ const Card = ({ data }) => {
 
       <div className="post_action_div">
         <div className="icon_div">
-          <div className="action_icon"> <FcLike /><span>{data?.like?.length}</span></div>
+          <div className="action_icon">
+            {data?.like.includes(userData?._id) ? < FcLike /> : <RiDislikeLine />}
+            <span>{data?.like?.length}</span></div>
           <div className="action_icon"><FaRegCommentAlt /><span>{data?.comment}</span></div>
           <div className="action_icon"><IoMdShare /><span>{data?.share}</span></div>
         </div>

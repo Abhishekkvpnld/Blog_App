@@ -1,16 +1,15 @@
-import { useState } from "react";
 import "./search.css";
 import { IoIosSearch } from "react-icons/io";
 import { IoIosClose } from "react-icons/io";
 
 
-const Search = ({ setShowSearchbar, searchValue, setSearchValue }) => {
+const Search = ({ setShowSearchbar, searchValue, setSearchValue, handleSearch }) => {
 
     const handleClose = () => {
-        setShowSearchbar((prev) => !prev);
+        setShowSearchbar(false);
         setSearchValue("");
     }
-console.log(setSearchValue)
+
     return (
         <>
             <div className="search_container">
@@ -20,7 +19,7 @@ console.log(setSearchValue)
                     </div>
 
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <span className="search_icon"><IoIosSearch /></span>
+                        <span className="search_icon"><IoIosSearch onClick={handleSearch} /></span>
                         <input type="text" name="search" id="search" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
                     </div>
                 </div>

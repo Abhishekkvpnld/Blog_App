@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Card from "../Card/Card";
 import "./listArticle.css";
 import { CiSearch } from "react-icons/ci";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import axios from "axios";
 import { BaseUrl } from "../../utils/baseUrl";
 import toast from "react-hot-toast";
@@ -12,20 +12,7 @@ import { blogType } from "../../contants/blogs";
 
 const ListArticle = () => {
 
-  const { setPosts, posts } = useContext(UserContext);
-
-  const [search, setSearch] = useState("")
-
-  const handleSearch = async () => {
-    try {
-      const response = await axios.post(`${BaseUrl}/post/search`, { searchValue: search }, { withCredentials: true });
-      if (response?.data?.success) {
-        setPosts(response?.data?.data);
-      }
-    } catch (error) {
-      toast.error(error?.response?.data?.message)
-    }
-  }
+  const { setPosts, posts, search, setSearch, searchData, setSearchData } = useContext(UserContext);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -40,7 +27,28 @@ const ListArticle = () => {
     }
 
     fetchPosts();
-  }, [search]);
+  }, []);
+
+
+  const handleSearch = async (q) => {
+    try {
+      if (!q) {
+        const response = await axios.post(`${BaseUrl}/post/search`, { query: search }, { withCredentials: true });
+        if (response?.data?.success) {
+          setSearchData(response?.data?.data);
+        }
+      } else {
+        const response = await axios.post(`${BaseUrl}/post/search`, { query: q }, { withCredentials: true });
+        if (response?.data?.success) {
+          setSearchData(response?.data?.data);
+        }
+      }
+
+    } catch (error) {
+      toast.error(error?.response?.data?.message)
+    }
+
+  }
 
   return (
     <div className="list_container">
@@ -50,7 +58,7 @@ const ListArticle = () => {
         <div className="list_title">
           {
             blogType.map((type, index) => (
-              <div className="title_search" key={index}>
+              <div className="title_search" key={index} onClick={() => handleSearch(type.value)}>
                 {
                   type.value
                 }
@@ -66,12 +74,13 @@ const ListArticle = () => {
       </div>
 
       <div className="list_div">
-        {
+        {searchData.length > 0 ? searchData?.map((post, index) => (
+          <div key={index}><Card data={post} /></div>
+        )) :
           posts?.map((post, index) => (
             <div key={index}><Card data={post} /></div>
           ))
         }
-
       </div>
 
     </div>

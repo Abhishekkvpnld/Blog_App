@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import "./navbar.css";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { BaseUrl } from "../../utils/baseUrl";
@@ -17,9 +17,8 @@ const Navbar = () => {
 
   const [showSearchbar, setShowSearchbar] = useState(false);
   const [show, setShow] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
 
-  const { isAuthenticated, setIsAuthenticated, userData } = useContext(UserContext);
+  const { isAuthenticated, setIsAuthenticated, userData, setSearch, search, setSearchData } = useContext(UserContext);
 
 
   const handleLogOut = async () => {
@@ -41,9 +40,22 @@ const Navbar = () => {
 
   const handleProfile = () => {
     if (!isAuthenticated) {
-      return <Navigate to={"/login"} />
+      toast.error("Login First🔐🔐");
+    } else {
+      navigate("/profile")
     }
-    navigate("/profile")
+  }
+
+  const handleSearch = async () => {
+    try {
+      const response = await axios.post(`${BaseUrl}/post/search`, { query: search }, { withCredentials: true });
+      if (response?.data?.success) {
+        setShowSearchbar(false);
+        setSearchData(response?.data?.data);
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message)
+    }
   }
 
   return (
@@ -65,20 +77,29 @@ const Navbar = () => {
       <div className={'navLinks'}>
 
         <div className="links">
-          <Link style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: "none" }}><IoIosSearch style={{ width: "25px", height: "25px" }} /><input value={searchValue} type="text" onChange={(e) => setSearchValue(e.target.value)} name="search-Inp" id="search-inp" className="search-inp" placeholder="Search..." /></Link>
+
+          <Link style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: "none" }}>
+            <IoIosSearch style={{ width: "25px", height: "25px" }} onClick={handleSearch} />
+            <input value={search} type="text" onChange={(e) => setSearch(e.target.value)} name="search-Inp" id="search-inp" className="search-inp" placeholder="Search..." />
+          </Link>
+
           <Link className="link" to={"/"}>Home</Link>
-          <div className="link" onClick={handleProfile}>Profile</div>
+          <div style={{ cursor: "pointer" }} className="link" onClick={handleProfile}>Profile</div>
           <Link className="link" to={"/"}>About Us</Link>
+
         </div>
 
-        {isAuthenticated ? (<button className="nav_btn" onClick={handleLogOut}>LOGOUT</button>) : (<button className="nav_btn" onClick={() => navigate("/login")}>LOGIN</button>)}
+        {isAuthenticated ?
+          (<button className="nav_btn" onClick={handleLogOut}>LOGOUT</button>) :
+          (<button className="nav_btn" onClick={() => navigate("/login")}>LOGIN</button>)
+        }
 
       </div>
       <GiHamburgerMenu className="menu_icon" width={"65px"} style={{ marginRight: "40px" }} onClick={() => setShow(!show)} />
 
       {
         showSearchbar && (
-          <Search setShowSearchbar={setShowSearchbar} searchValue={searchValue} setSearchValue={setSearchValue} />
+          <Search setShowSearchbar={setShowSearchbar} searchValue={search} setSearchValue={setSearch} handleSearch={handleSearch} />
         )
       }
     </nav>

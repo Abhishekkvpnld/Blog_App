@@ -64,7 +64,6 @@ export const deletePost = async (req, res) => {
     const userId = req.user.id;
     const postId = req.params.id;
 
-
     const checkPost = await Post.findById(postId);
     if (!checkPost) throw new Error("Post Not Found❌");
 
@@ -225,6 +224,7 @@ export const commentPost = async (req, res) => {};
 export const searchPost = async (req, res) => {
   try {
     const { query } = req.body;
+
     if (query.length === 0)
       throw new Error("Please Type Something To Search...🔍");
 

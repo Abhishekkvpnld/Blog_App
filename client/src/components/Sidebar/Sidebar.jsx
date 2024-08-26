@@ -17,7 +17,7 @@ const SideBar = ({ show, setShow, handleLogOut, setShowSearchbar }) => {
 
     const navigate = useNavigate();
 
-    const { isAuthenticated, setIsAuthenticated } = useContext(UserContext);
+    const { isAuthenticated } = useContext(UserContext);
 
 
     const handleGoHome = () => {
@@ -31,6 +31,14 @@ const SideBar = ({ show, setShow, handleLogOut, setShowSearchbar }) => {
     };
 
 
+    const handleProfile = () => {
+        if (!isAuthenticated) {
+            toast.error("Please Login First❌")
+        } else {
+            navigate("/profile")
+        }
+    }
+
 
     return (
         <>
@@ -42,7 +50,7 @@ const SideBar = ({ show, setShow, handleLogOut, setShowSearchbar }) => {
                     <IoHomeOutline title='Home' className='sidebar_icon' onClick={handleGoHome} />
 
                     <FcSearch title='Search' className='sidebar_icon' onClick={handleSearch} />
-                    <FcBusinessContact title='Profile' className='sidebar_icon' />
+                    <FcBusinessContact title='Profile' className='sidebar_icon' onClick={handleProfile} />
                     <FcAbout title='About' className='sidebar_icon' />
                     {isAuthenticated ? (<IoIosLogOut title='Logout' className='sidebar_icon-logout ' onClick={handleLogOut} />) : (
                         <AiOutlineLogin title='Login' className='sidebar_icon' onClick={() => navigate("/login")} />)}

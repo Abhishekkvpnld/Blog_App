@@ -77,9 +77,6 @@
     margin-bottom: 10px;
   }
 
-  .title_search{
-    display: none;
-  }
 }
 
 
@@ -87,6 +84,11 @@
   .list_div {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  
+  .title_search{
+    display: none;
   }
 }
 
