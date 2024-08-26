@@ -14,18 +14,19 @@ const ListArticle = () => {
 
   const { setPosts, posts, search, setSearch, searchData, setSearchData } = useContext(UserContext);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await axios.get(`${BaseUrl}/post/allPosts`, { withCredentials: true });
-        if (response?.data?.success) {
-          setPosts(response?.data?.data);
-        }
-      } catch (error) {
-        toast.error(error?.response?.data?.message)
-      }
-    }
 
+  const fetchPosts = async () => {
+    try {
+      const response = await axios.get(`${BaseUrl}/post/allPosts`, { withCredentials: true });
+      if (response?.data?.success) {
+        setPosts(response?.data?.data);
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message)
+    }
+  }
+
+  useEffect(() => {
     fetchPosts();
   }, []);
 
@@ -75,10 +76,10 @@ const ListArticle = () => {
 
       <div className="list_div">
         {searchData.length > 0 ? searchData?.map((post, index) => (
-          <div key={index}><Card data={post} /></div>
+          <div key={index}><Card data={post} fetchPosts={fetchPosts} /></div>
         )) :
           posts?.map((post, index) => (
-            <div key={index}><Card data={post} /></div>
+            <div key={index}><Card data={post} fetchPosts={fetchPosts}/></div>
           ))
         }
       </div>

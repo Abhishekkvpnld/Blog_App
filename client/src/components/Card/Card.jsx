@@ -9,9 +9,11 @@ import moment from "moment";
 import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import toast from "react-hot-toast";
+import { BaseUrl } from "../../utils/baseUrl";
+import axios from "axios";
 
 
-const Card = ({ data }) => {
+const Card = ({ data, fetchPosts }) => {
 
   const { isAuthenticated, userData } = useContext(UserContext);
 
@@ -23,7 +25,23 @@ const Card = ({ data }) => {
     } else {
       toast.error("Please Login First🔐🔐");
     }
+  };
+
+  const handleLike = async (id) => {
+    try {
+
+      const response = await axios.put(`${BaseUrl}/post/like/${id}`, {}, { withCredentials: true });
+      if (response?.data?.success) {
+        toast.success(response?.data?.message);
+        fetchPosts();
+      }
+
+    } catch (error) {
+      toast.error(error?.response?.data?.message)
+    }
+
   }
+
 
   return (
     <div className="card_container">
@@ -48,7 +66,9 @@ const Card = ({ data }) => {
       <div className="post_action_div">
         <div className="icon_div">
           <div className="action_icon">
-            {data?.like.includes(userData?._id) ? < FcLike /> : <RiDislikeLine />}
+            <div onClick={() => handleLike(data?._id)} >
+              {data?.like.includes(userData?._id) ? < FcLike /> : <RiDislikeLine />}
+            </div>
             <span>{data?.like?.length}</span></div>
           <div className="action_icon"><FaRegCommentAlt /><span>{data?.comment}</span></div>
           <div className="action_icon"><IoMdShare /><span>{data?.share}</span></div>

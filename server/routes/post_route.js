@@ -14,7 +14,7 @@ import { authToken } from "../middlewares/jwtAuth.js";
 const router = express.Router();
 
 router.get("/allPosts", allPost);
-router.get("/getPost/:id",authToken,getPost);
+router.get("/getPost/:id", authToken, getPost);
 router.get("/user-posts", authToken, userPosts);
 
 router.post("/addNew", authToken, addNewPost);
@@ -22,7 +22,7 @@ router.post("/search", searchPost);
 
 router.delete("/delete-post/:id", authToken, deletePost);
 
-router.put("/like/:id", likePost);
-router.put("/comment/:id", commentPost);
+router.put("/like/:id", authToken, likePost);
+router.put("/comment/:id", authToken, commentPost);
 
 export default router;

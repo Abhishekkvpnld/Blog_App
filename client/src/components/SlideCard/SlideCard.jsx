@@ -2,20 +2,25 @@ import { useContext } from "react";
 import "./slideCard.css";
 import { UserContext } from "../../context/userContext";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const SlideCard = ({ data }) => {
 
     const navigate = useNavigate();
 
-    const { posts } = useContext(UserContext);
+    const { posts, isAuthenticated } = useContext(UserContext);
 
     const handleOpenSite = (data) => {
-        navigate(`/details/${data?._id}`)
-      }
+        if (!isAuthenticated) {
+            toast.error("Please Login First 🔐🔐");
+        } else {
+            navigate(`/details/${data?._id}`)
+        }
+    }
 
     const shuffleArray = (array) => {
         return array.slice().sort(() => Math.random() - 0.6);
-      };
+    };
 
     const shuffledArray = shuffleArray(posts);
 
@@ -29,7 +34,7 @@ const SlideCard = ({ data }) => {
 
                 {shuffledArray.map((item) => (
 
-                    <div className="slide_card_container" key={item._id} onClick={()=>handleOpenSite(item)}>
+                    <div className="slide_card_container" key={item._id} onClick={() => handleOpenSite(item)}>
                         <img src={item?.postImg?.url} alt="img" />
 
                         <div className="slide_card_content">

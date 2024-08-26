@@ -14,23 +14,9 @@ import { UserContext } from './context/userContext';
 
 function App() {
 
-  const { isAuthenticated, setIsAuthenticated, setUserData } = useContext(UserContext);
+  const { isAuthenticated, fetchUserData } = useContext(UserContext);
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get(`${BaseUrl}/user/userData`, { withCredentials: true });
-
-        if (response?.data?.success) {
-          setIsAuthenticated(true);
-          setUserData(response?.data?.data);
-        }
-
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-
     fetchUserData();
   }, [isAuthenticated]);
 
@@ -44,7 +30,7 @@ function App() {
           <Route path='/profile' element={<Profile />} />
           <Route path='/details/:id' element={<BlogDetails />} />
         </Routes>
-        <Toaster position='top-right' />
+        <Toaster position='top-center' />
       </Router>
     </>
   )

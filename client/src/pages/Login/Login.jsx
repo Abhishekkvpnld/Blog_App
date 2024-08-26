@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./login.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Navbar from "../../components/Navbar/Navbar";
 import { BaseUrl } from "../../utils/baseUrl";
+import { UserContext } from "../../context/userContext";
 
 const Login = () => {
 
+  const { isAuthenticated, fetchUserData } = useContext(UserContext); // Access isAuthenticated and fetchUserData
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("user@gmail.com");
@@ -18,10 +20,10 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${BaseUrl}/user/login`, { email, password },{withCredentials:true});
+      const response = await axios.post(`${BaseUrl}/user/login`, { email, password }, { withCredentials: true });
       if (response?.data.success) {
         toast.success(response?.data?.message);
-        navigate("/");
+        fetchUserData();
       }
     } catch (error) {
       console.log(error)
@@ -29,6 +31,11 @@ const Login = () => {
     }
   }
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
 
   return (
     <>
