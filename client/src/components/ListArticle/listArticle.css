@@ -64,38 +64,23 @@
   row-gap: 10px;
 }
 
-
 @media (max-width: 900px) {
   .list_div {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    /* gap: 16px; */
   }
 
-  .list_title_div{
+  .list_title_div {
     flex-direction: column;
     gap: 0;
     margin-bottom: 10px;
   }
-
 }
 
-
 @media (max-width: 786px) {
-  .list_div {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-  }
 
-  
-  .title_search{
+  .title_search {
     display: none;
   }
 }
-
-@media (max-width: 576px) {
-  .list_div {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
-
